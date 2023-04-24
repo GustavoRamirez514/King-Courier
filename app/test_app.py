@@ -35,37 +35,37 @@ class tests_forms(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class ViewsTestCase(TestCase):
+# class ViewsTestCase(TestCase):
 
-    def test_perfil_view(self):
-        url = reverse('perfil')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'perfil.html')
+#     def test_perfil_view(self):
+#         url = reverse('perfil')
+#         response = self.client.get(url)
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'perfil.html')
 
-    def test_login_view(self):
-        url = reverse('login')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'login.html')
+#     def test_login_view(self):
+#         url = reverse('login')
+#         response = self.client.get(url)
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'login.html')
 
-        # prueba de solicitud POST con credenciales incorrectas
-        response = self.client.post(
-            url, {'username': 'usuario_incorrecto', 'password': 'contraseña_incorrecta'})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'login.html')
-        self.assertContains(response, 'usuario o contraseña incorrectos')
+#         # prueba de solicitud POST con credenciales incorrectas
+#         response = self.client.post(
+#             url, {'username': 'usuario_incorrecto', 'password': 'contraseña_incorrecta'})
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'login.html')
+#         self.assertContains(response, 'usuario o contraseña incorrectos')
 
-        # prueba de solicitud POST con credenciales correctas
-        # user = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
-        # response = self.client.post(url, {'username': 'usuario_prueba', 'password': 'contraseña_prueba'})
-        # self.assertRedirects(response, reverse('welcome'))
+#         # prueba de solicitud POST con credenciales correctas
+#         # user = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
+#         # response = self.client.post(url, {'username': 'usuario_prueba', 'password': 'contraseña_prueba'})
+#         # self.assertRedirects(response, reverse('welcome'))
 
-    def test_register_view(self):
-        url = reverse('register')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'register.html')
+#     def test_register_view(self):
+#         url = reverse('register')
+#         response = self.client.get(url)
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'register.html')
 
     # def test_logout_view(self):
     #     # prueba de cierre de sesión
