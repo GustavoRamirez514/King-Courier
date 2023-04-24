@@ -41,8 +41,9 @@ body {
   display: none;
 }
 
-.form {
-  font-family: "Roboto Mono";
+.error {
+  color: red;
+  font-weight: bold;
 }
 
 .form_body {
@@ -108,11 +109,11 @@ body {
   .imageButtons {
     display: block;
   }
-  .image-presentacion img {
+  .image-presentacion {
     display: none;
   }
 
-  .image-transparente{
+  .image-transparente {
     display: flex;
     justify-content: center;
     padding-bottom: 2rem;
