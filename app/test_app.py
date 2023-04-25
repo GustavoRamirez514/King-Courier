@@ -3,9 +3,10 @@ from user.models import User
 from app.forms import UserForm
 from django.urls import reverse
 
+
 class tests_forms(TestCase):
 
-# Verificar que el formulario sea válido cuando se ingresan dos contraseñas iguales
+    # Verificar que el formulario sea válido cuando se ingresan dos contraseñas iguales
     def test_passwords_match(self):
         form_data = {
             'username': 'testuser',
@@ -34,38 +35,39 @@ class tests_forms(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class ViewsTestCase(TestCase):
-    
-    def test_perfil_view(self):
+class Test_views(TestCase):
+
+    def test_perfil(self):
         url = reverse('perfil')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'perfil.html')
-        
-    def test_login_view(self):
+
+    def test_login(self):
         url = reverse('login')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
-        
+
         # prueba de solicitud POST con credenciales incorrectas
-        response = self.client.post(url, {'username': 'usuario_incorrecto', 'password': 'contraseña_incorrecta'})
+        response = self.client.post(
+            url, {'username': 'usuario_incorrecto', 'password': 'contraseña_incorrecta'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
         self.assertContains(response, 'usuario o contraseña incorrectos')
-        
+
         # prueba de solicitud POST con credenciales correctas
         user = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
         response = self.client.post(url, {'username': 'usuario_prueba', 'password': 'contraseña_prueba'})
         self.assertRedirects(response, reverse('welcome'))
-        
-    def test_register_view(self):
+
+    def test_register(self):
         url = reverse('register')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register.html')
-        
-    def test_logout_view(self):
+
+    def test_logout(self):
         # prueba de cierre de sesión
         user = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
         self.client.login(username='usuario_prueba', password='contraseña_prueba')

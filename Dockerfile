@@ -9,7 +9,7 @@ COPY requirements.txt .
 COPY . .
 
 # Se instalan las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Se define el comando para iniciar la aplicación
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
