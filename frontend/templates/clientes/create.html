@@ -9,7 +9,9 @@
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
     crossorigin="anonymous"
     />
+    <link href="{% static 'styles/StyleReset.css' %}" rel="stylesheet" />
     <link href="{% static 'styles/navbarStyle.css' %}" rel="stylesheet" />
+    <link href="{% static 'styles/FormStyle.css' %}" rel="stylesheet" />
     <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -28,7 +30,7 @@
 {% endblock header %}
 
 {% block content %}
-  <h1>crear Clientes</h1>
+  <h1 class="titulo">Crear Clientes</h1>
 
   <form action="/clientes/create/" method="POST">
     {% csrf_token %} {{createForm}}
