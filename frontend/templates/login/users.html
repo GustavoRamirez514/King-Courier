@@ -28,9 +28,10 @@
     {% include 'layouts/navbar.html' %}
 {% endblock header %}
 
-{% block content %} 
+{% block content %}
+    <h3>Usuarios</h3>
     {% for user in users  %}
         <p>{{user}}</p>
     {% endfor %}
-   
+    <script src="{% static 'scripts/navbarScript.js' %}"></script>
 {% endblock content %}
