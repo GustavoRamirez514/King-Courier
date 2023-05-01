@@ -59,7 +59,7 @@
       
       {% if user.is_authenticated and not user.propietario_cliente and not user.propietario_mensajero %}
       <li class="nav-item">
-        <a class="nav-link" href="#">Usuarios</a>
+        <a class="nav-link" href="{% url 'users' %}">Usuarios</a>
       </li>
       {% endif %} 
       

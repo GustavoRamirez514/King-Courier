@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # crea una cookie de autenticacion
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import UserForm
+from user.forms import UserForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
