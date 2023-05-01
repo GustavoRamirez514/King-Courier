@@ -29,7 +29,7 @@
 
 {% block content %}
   <h1>Sucursales</h1>
-  <button onclick="window.location.href='{% url 'create_sucursal' %}'" >Crear Cliente</button>
+  <button onclick="window.location.href='{% url 'create_sucursal' %}'" >Crear Sucursal</button>
   <p>{{message}}</p>
   {% for sucursal in sucursales %}
     <ul>
@@ -47,4 +47,5 @@
       </li>
     </ul>
   {% endfor %}
+  <script src="{% static 'scripts/navbarScript.js' %}"></script>
 {% endblock content %}
