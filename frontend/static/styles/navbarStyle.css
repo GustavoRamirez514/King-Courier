@@ -42,42 +42,19 @@
   color: white;
 }
 
-@media (max-width: 1370px) {
-  .navbar .navbar-brand {
-    padding-left: 0rem;
-  }
-  
-  #navbarSupportedContent {
-    padding-right: 0rem;
-  }
-
-  .nav-item{
-    font-size: 1rem;
-  }
-
-  .nav-item .btn{
-    font-size: 1rem;
-  }
-}
-
-
 @media (max-width: 1040px) {
-  .nav-item{
-    font-size: .7rem;
+  .navbar .navbar-brand {
+    padding-left: 1rem;
   }
 
-  .nav-item .btn{
-    font-size: 0.7rem;
+  #navbarSupportedContent {
+    padding-right: 1rem;
+  }
+  .nav-item {
+    font-size: 0.85rem;
   }
 
-}
-
-@media (max-width: 833px) {
-  .nav-item{
-    font-size: 0.4rem;
+  .nav-item .btn {
+    font-size: 0.85rem;
   }
-  .nav-item .btn{
-    font-size: 0.4rem;
-  }
-
 }
