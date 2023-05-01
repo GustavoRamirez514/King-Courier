@@ -6,14 +6,13 @@ from .forms import UserForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required
 def perfil(request):
-    return render(request, 'perfil.html')
-
+    return render(request, 'login/perfil.html')
 
 def login_home(request):
     if request.method == 'GET':
-        return render(request, 'login.html')
+        return render(request, 'login/login.html')
 
     else:
         user = authenticate(
@@ -21,14 +20,14 @@ def login_home(request):
         print(request.POST)
         print(user)
         if user is None:
-            return render(request, 'login.html', {
+            return render(request, 'login/login.html', {
                 'error': 'usuario o contraseña incorrectos'
             })
         else:
             login(request, user)
             return redirect('welcome')
 
-
+@login_required
 def user_create(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -37,7 +36,7 @@ def user_create(request):
             return redirect('perfil')
     else:
         form = UserForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'login/register.html', {'form': form})
 
 
 @login_required
