@@ -102,22 +102,25 @@ def sucursal(request):
 
 
 def create_sucursal(request):
-    print
+    cliente = request.user.propietario_cliente
     if request.method == 'GET':
         return render(request, 'sucursales/create.html', {
-            'createForm': SucursaleForm
+            'createForm': SucursaleForm(),
+            'cliente': cliente
         })
     else:
-        try:
-            data = SucursaleForm(request.POST)
+        data = SucursaleForm(request.POST)
+        print(data)
+        if data.is_valid():
             new_sucursal = data.save(commit=False)
-            new_sucursal.user = request.user
+            new_sucursal.cliente = cliente
             new_sucursal.save()
             return redirect('sucursales')
-        except ValueError:
+        else:
             return render(request, 'sucursales/create.html', {
-                'createForm': SucursaleForm,
-                'error': 'Datos invalidos'
+                'createForm': data,
+                'cliente': cliente,
+                'error': 'Datos inválidos',
             })
 
 

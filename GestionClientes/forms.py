@@ -10,4 +10,4 @@ class CreateCliente(ModelForm):
 class SucursaleForm(ModelForm):
     class Meta:
         model = Sucursale
-        fields = ['nombre', 'direccion', 'telefono', 'ciudad', 'cliente']
+        fields = ['nombre', 'direccion', 'telefono', 'ciudad']
