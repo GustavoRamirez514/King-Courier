@@ -11,23 +11,51 @@
 {% endblock header %}
 
 {% block content %}
-  <h1>Mensajeros</h1>
-  <button onclick="window.location.href='#'" >Crear Mensajero</button>
-  <p>{{message}}</p>
-  {% for mensajero in mensajeros %}
-    <ul>
-      <li>
-        <a href="#">
-          <p>{{ mensajero.nombre }}</p>
-        </a>
+  <h1 class="text-center">Mensajeros</h1>
+    {% if message %}
+      <div class="alert alert-info" role="alert">
+        {{message}}
+      </div>
+    {% endif %}
+    
+      <div class="ml-3">
+        <a class="btn btn-success" href="#" role="button">Crear Mensajero</a>
+      </div>
 
-        <a href="#">Editar</a>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Ciudad</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Vehiculo</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for mensajero in mensajeros %}
+                <tr>
+                  <td>{{mensajero.identificacion}}</td>
+                  <td><a href="#">{{ mensajero.nombre }}</a></td>
+                  <td>{{mensajero.direccion}}</td>
+                  <td>{{mensajero.ciudad}}</td>
+                  <td>{{mensajero.email}}</td>
+                  <td>{{mensajero.telefono}}</td>
+                  <td>{{mensajero.vehiculo}}</td>
+                  <td> 
+                    <a class="btn btn-info" href="#" role="button">Editar</a>             
+                    <a class="btn btn-danger" href="#" role="button">Borrar</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <form method="post" action="#">
-          {% csrf_token %}
-          <button type="submit">Eliminar</button>
-        </form>
-      </li>
-    </ul>
-  {% endfor %}
 {% endblock content %}
