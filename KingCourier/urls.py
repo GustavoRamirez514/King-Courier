@@ -20,9 +20,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('login.urls')),
+    path('', include('core.login.urls')),
     path('bienvenida/', TemplateView.as_view(template_name='welcome.html'), name='welcome'),
-    path('', include("GestionClientes.urls")),
-    path('mensajeros/', include("GestionMensajeros.urls")),
-    path('', include('user.urls')),
+    path('', include("core.GestionClientes.urls")),
+    path('mensajeros/', include("core.GestionMensajeros.urls")),
+    path('', include('core.user.urls')),
 ]
