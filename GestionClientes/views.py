@@ -130,7 +130,7 @@ def detalle_sucursal(request, sucursal_id):
         'sucursal': sucursal
     })
 
-# editar cliente
+# editar sucursal
 def editar_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     if request.method == 'POST':
