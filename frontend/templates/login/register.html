@@ -11,6 +11,8 @@
 {% endblock header %}
 
 {% block content %}
+<h1 class="titulo">Crear Usuarios</h1>
+
   <form method="POST">
     {% csrf_token %} 
     {{form.as_p}}
