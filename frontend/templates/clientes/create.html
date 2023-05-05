@@ -12,8 +12,9 @@
 
 {% block content %}
   <h1 class="titulo">Crear Clientes</h1>
-
-  <form method="POST">
+  {{error}}
+  
+  <form action="/clientes/create/" method="POST">
     {% csrf_token %}
 
     <label for="id_identificacion">Identificacion:</label>
