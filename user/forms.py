@@ -1,4 +1,4 @@
-from core.user.models import User
+from user.models import User
 from django import forms
 # Para crear un form personalizado, debemos crear dentro de nuestra app un archivo form.py y dentro de el ponemos el modelo en el cual se va a basar para realizar el form
 

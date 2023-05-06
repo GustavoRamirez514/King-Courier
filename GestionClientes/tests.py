@@ -1,7 +1,7 @@
 from user.models import User
 from django.test import TestCase, Client
 from django.urls import reverse
-from core.GestionClientes.models import Cliente, Sucursale
+from GestionClientes.models import Cliente, Sucursale
 
 
 class ClienteViewTest(TestCase):

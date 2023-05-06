@@ -1,6 +1,6 @@
 from django.test import TestCase
-from core.user.models import User
-from core.user.forms import UserForm
+from user.models import User
+from user.forms import UserForm
 from django.urls import reverse
 
 

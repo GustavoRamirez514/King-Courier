@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente, Sucursale
 from .forms import CreateCliente, SucursaleForm
 from django.contrib.auth.decorators import login_required
-from core.user.models import User
+from user.models import User
 
 # Create your views here.
 
