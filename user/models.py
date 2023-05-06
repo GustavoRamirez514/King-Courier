@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from core.GestionClientes import models as modelos_g_clientes
-from core.GestionMensajeros import models as modelos_g_mensajeros
+from GestionClientes import models as modelos_g_clientes
+from GestionMensajeros import models as modelos_g_mensajeros
 
 # Create your models here.
 
