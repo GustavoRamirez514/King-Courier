@@ -6,3 +6,6 @@
 __pycache__/
 media
 KingCourierDB.sql
+.scannerwork
+coverage.xml
+.coverage
