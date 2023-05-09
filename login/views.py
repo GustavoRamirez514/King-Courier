@@ -15,8 +15,6 @@ def login_home(request):
     else:
         user = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
-        print(request.POST)
-        print(user)
         if user is None:
             return render(request, 'login/login.html', {
                 'error': 'usuario o contraseña incorrectos'
