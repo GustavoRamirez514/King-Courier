@@ -9,7 +9,9 @@ th{
 .btn:hover{
     background-color: black;
 }
-
+caption {
+  display: none;
+}
 
 
 
