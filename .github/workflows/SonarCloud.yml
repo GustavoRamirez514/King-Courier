@@ -1,0 +1,45 @@
+name: SonarCloud
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: coverage run manage.py test
+
+      - name: Generar reporte de la cobertura
+        run: coverage xml -o coverage.xml
+      
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          extraProperties: |
+            sonar.sources=./
+            sonar.exclusions=**/migrations/**
+            sonar.python.coverage.reportPaths=GestionClientes/coverage.xml
+            sonar.tests=GestionClientes
