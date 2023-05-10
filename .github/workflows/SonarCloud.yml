@@ -37,9 +37,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          extraProperties: |
-            sonar.sources=./
-            sonar.exclusions=**/migrations/**
-            sonar.python.coverage.reportPaths=GestionClientes/coverage.xml
-            sonar.tests=GestionClientes
