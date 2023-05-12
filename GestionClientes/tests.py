@@ -65,7 +65,6 @@ class ClienteViewTest(TestCase):
     def test_editar_cliente_view(self):
         # Comprobamos que la vista para editar un cliente funciona correctamente
         url = reverse('editar_cliente', args=[self.cliente.id])
-        url = reverse('editar_cliente', args=[self.cliente.id])
         data = {
             'identificacion': '1234567890',
             'nombre': 'Juan Pablo',
