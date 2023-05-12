@@ -4,7 +4,9 @@
 {% block head %}
     <title>King Courier | Mensajeros</title>
     <link href="{% static 'styles/TableStyle.css' %}" rel="stylesheet" />
-{% endblock head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'scripts/SearchTable.js' %}"></script>
+    {% endblock head %}
 
 {% block header %}
     {% include 'layouts/navbar.html' %}
@@ -18,9 +20,14 @@
       </div>
     {% endif %}
     
-      <div class="ml-3">
-        <a class="btn btn-success" href="#" role="button">Crear Mensajero</a>
+    <div class="search-container d-flex justify-content-between align-items-center mb-3">
+      <div class="mr-4 ml-4 btnCreate">
+        <a class="btn btn-success w-150" href="#" role="button">Crear Mensajero</a>
       </div>
+      <div class="mr-4 search">
+        <input type="text" class="form-control w-300" id="search-input" placeholder="Buscar...">
+      </div>
+    </div>
 
       <div class="card-body">
         <div class="table-responsive">

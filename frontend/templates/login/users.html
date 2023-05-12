@@ -5,7 +5,9 @@
 {% block head %}
     <title>King Courier | Usuarios</title>
     <link href="{% static 'styles/TableStyle.css' %}" rel="stylesheet" />
-{% endblock head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'scripts/SearchTable.js' %}"></script>
+    {% endblock head %}
 
 {% block header %}
     {% include 'layouts/navbar.html' %}
@@ -20,9 +22,14 @@
     </div>
   {% endif %}
 
-    <div class="ml-3">
-      <a class="btn btn-success" href="{% url 'register' %}" role="button">Crear Usuario</a>
+  <div class="search-container d-flex justify-content-between align-items-center mb-3">
+    <div class="mr-4 ml-4 btnCreate">
+      <a class="btn btn-success w-150" href="{% url 'register' %}" role="button">Crear Usuario</a>
     </div>
+    <div class="mr-4 search">
+      <input type="text" class="form-control w-300" id="search-input" placeholder="Buscar...">
+    </div>
+  </div>
 
     <div class="card-body">
       <div class="table-responsive">
@@ -49,9 +56,8 @@
               <td>{{user.city}}</td>
               <td>{{user.propietario_cliente}}</td>
               <td>{{user.propietario_mensajero}}</td>
-              {% comment %} <td> 
-                <a class="btn btn-info" href="{% url 'editar_cliente' cliente.id %}" role="button">Editar</a>             
-                <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button">Borrar</a>
+              {% comment %} <td>
+                <a class="btn btn-danger" href="{% url 'eliminar_usuario' user.id %}" role="button">Borrar</a>
               </td> {% endcomment %}
             </tr>
             {% endfor %}
