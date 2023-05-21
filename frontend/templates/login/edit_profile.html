@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %} 
+
+{% load static %}
+
+{% block head %}
+  <link href="{% static 'styles/FormStyle.css' %}" rel="stylesheet" />
+{% endblock head %} 
+
+{% block content %}
+<h1 class="titulo">Editar Perfil </h1>
+<form method="post">
+  {% csrf_token %} 
+  {{ form.as_p }}
+  <button type="submit">Guardar Cambios</button>
+  {% endblock content %}
+</form>
