@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %} 
+{% load static %} 
+
+{% block head %}
+  <title>King Courier | Crear Mensajero</title>
+  <link href="{% static 'styles/FormStyle.css' %}" rel="stylesheet" />
+{% endblock head %} 
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+
+  <h1 class="titulo">Crear Mensajero</h1>
+  {{error}}
+  <form action="{% url 'create_mensajeros' %}" method="POST">
+    {% csrf_token %}
+    
+    {{createForm}}
+    
+    <button>Guardar</button> 
+  </form>
+
+{% endblock content %}
