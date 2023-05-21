@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Cliente, Sucursale
+from .models import Cliente, Sucursale, DetalleClienteMensajeros
 # Para crear un form personalizado, debemos crear dentro de nuestra app un archivo form.py y dentro de el ponemos el modelo en el cual se va a basar para realizar el form
 
 class CreateCliente(ModelForm):
@@ -11,3 +11,8 @@ class SucursaleForm(ModelForm):
     class Meta:
         model = Sucursale
         fields = ['nombre', 'direccion', 'telefono', 'ciudad']
+
+class DetalleClienteMensajeroForm(ModelForm):
+    class Meta:
+        model = DetalleClienteMensajeros
+        fields = ['mensajero']

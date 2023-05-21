@@ -48,6 +48,22 @@ form button {
   box-sizing: border-box;
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="checkbox"]:checked {
+  appearance: auto;
+}
+
+span {
+  display: inline-block;
+}
+
 form button {
   background-color: #d6af81;
   color: #fff;
