@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cliente, Sucursale
-from .forms import CreateCliente, SucursaleForm
-from django.contrib.auth.decorators import login_required
+from .models import Cliente, Sucursale, DetalleClienteMensajeros
+from .forms import CreateCliente, SucursaleForm, DetalleClienteMensajeroForm
+from django.contrib.auth.decorators import login_required, user_passes_test
 from user.models import User
 
 # Create your views here.
 
 # listar clientes registrados
+@user_passes_test(lambda user: user.is_staff)
 @login_required
 def cliente(request):
     cliente = Cliente.objects.filter(activo=True)
@@ -21,8 +22,8 @@ def cliente(request):
         })
 
 # crear clientes
-
-
+@user_passes_test(lambda user: user.is_staff)
+@login_required
 def create_cliente(request):
     if request.method == 'GET':
         return render(request, 'clientes/create.html', {
@@ -51,19 +52,26 @@ def create_cliente(request):
 
 
 # detalles de un cliente
+@user_passes_test(lambda user: user.is_staff)
+@login_required
 def detalle_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     # Filtrar los usuarios cuyo propietario cliente sea igual al del detalle
     users = User.objects.filter(propietario_cliente=cliente_id)
     # Filtrar las sucursales cuyo cliente sea igual al del detalle
     sucursales = Sucursale.objects.filter(cliente=cliente_id)
+    # Filtra los mensajeros cuyo cliente es igual al del detalle
+    detalle_mensajeros = DetalleClienteMensajeros.objects.filter(cliente=cliente_id)
     return render(request, 'clientes/detail.html', {
         'cliente': cliente,
         'users': users,
         'sucursales': sucursales,
+        'detalleMensajeros': detalle_mensajeros,
     })
 
 # editar cliente
+@user_passes_test(lambda user: user.is_staff)
+@login_required
 def editar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     if request.method == 'POST':
@@ -78,16 +86,52 @@ def editar_cliente(request, cliente_id):
     })
 
 # eliminar cliente
-
-
+@user_passes_test(lambda user: user.is_staff)
+@login_required
 def eliminar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     cliente.activo = False
     cliente.save()
     return redirect('clientes')
 
+# asignar Mensajeros a un cliente
+@user_passes_test(lambda user: user.is_staff)
+@login_required
+def asignar_mensajeros(request, cliente_id):
+    cliente = get_object_or_404(Cliente, pk=cliente_id)
+    if request.method == 'GET':
+        form = DetalleClienteMensajeroForm()
+        return render(request, 'clientes/asignarMensajero.html', {
+            'form': form,
+            'cliente': cliente
+        })
+    else:
+        data = DetalleClienteMensajeroForm(request.POST)
+        if data.is_valid():
+
+            # Agrega una validación personalizada para la identificación
+            mensajero = data.cleaned_data['mensajero']
+            info = DetalleClienteMensajeros.objects.filter(cliente=cliente_id)
+            existe = info.filter(mensajero=mensajero).exists()
+            print(info.filter(mensajero=mensajero))
+            print(existe)
+            if existe:
+                return render(request, 'clientes/asignarMensajero.html', {
+                    'form': data,
+                    'error': 'Ese mensajero ya esta asignado'
+                })
+            new_detalle = data.save(commit=False)
+            new_detalle.cliente = cliente
+            new_detalle.save()
+            return redirect('detalle_cliente', cliente_id)
+        else:
+            return render(request, 'clientes/asignarMensajero.html', {
+                'form': data,
+                'error': 'Datos inválidos'
+            }) 
 
 # listar sucursales registradas
+@login_required
 def sucursal(request):
     sucursal = Sucursale.objects.filter(cliente=request.user.propietario_cliente)
     if sucursal.exists():
@@ -100,7 +144,8 @@ def sucursal(request):
             'message': message
         })
 
-
+# crear sucursal
+@login_required
 def create_sucursal(request):
     cliente = request.user.propietario_cliente
     if request.method == 'GET':
@@ -123,7 +168,8 @@ def create_sucursal(request):
                 'error': 'Datos inválidos',
             })
 
-
+# detalles de una sucursal
+@login_required
 def detalle_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     return render(request, 'sucursales/detail.html', {
@@ -131,6 +177,7 @@ def detalle_sucursal(request, sucursal_id):
     })
 
 # editar sucursal
+@login_required
 def editar_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     if request.method == 'POST':
@@ -144,7 +191,8 @@ def editar_sucursal(request, sucursal_id):
         'form': form, 'sucursal': sucursal
     })
 
-
+# eliminar una sucursal
+@login_required
 def eliminar_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     sucursal.activo = False

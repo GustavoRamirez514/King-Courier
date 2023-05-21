@@ -1,4 +1,5 @@
 from django.db import models
+from GestionMensajeros.models import Mensajeros
 
 # Create your models here.
 
@@ -26,3 +27,10 @@ class Sucursale(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class DetalleClienteMensajeros(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    mensajero = models.ForeignKey(Mensajeros, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.cliente.nombre + " - " + self.mensajero.nombre
