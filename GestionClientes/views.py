@@ -7,8 +7,6 @@ from user.models import User
 # Create your views here.
 
 # listar clientes registrados
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def cliente(request):
     cliente = Cliente.objects.filter(activo=True)
     if cliente.exists():
@@ -22,8 +20,6 @@ def cliente(request):
         })
 
 # crear clientes
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def create_cliente(request):
     if request.method == 'GET':
         return render(request, 'clientes/create.html', {
@@ -52,8 +48,6 @@ def create_cliente(request):
 
 
 # detalles de un cliente
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def detalle_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     # Filtrar los usuarios cuyo propietario cliente sea igual al del detalle
@@ -70,8 +64,6 @@ def detalle_cliente(request, cliente_id):
     })
 
 # editar cliente
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def editar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     if request.method == 'POST':
@@ -86,8 +78,6 @@ def editar_cliente(request, cliente_id):
     })
 
 # eliminar cliente
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def eliminar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     cliente.activo = False
@@ -95,8 +85,6 @@ def eliminar_cliente(request, cliente_id):
     return redirect('clientes')
 
 # asignar Mensajeros a un cliente
-@user_passes_test(lambda user: user.is_staff)
-@login_required
 def asignar_mensajeros(request, cliente_id):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     if request.method == 'GET':
@@ -131,7 +119,6 @@ def asignar_mensajeros(request, cliente_id):
             }) 
 
 # listar sucursales registradas
-@login_required
 def sucursal(request):
     sucursal = Sucursale.objects.filter(cliente=request.user.propietario_cliente)
     if sucursal.exists():
@@ -145,7 +132,6 @@ def sucursal(request):
         })
 
 # crear sucursal
-@login_required
 def create_sucursal(request):
     cliente = request.user.propietario_cliente
     if request.method == 'GET':
@@ -169,7 +155,6 @@ def create_sucursal(request):
             })
 
 # detalles de una sucursal
-@login_required
 def detalle_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     return render(request, 'sucursales/detail.html', {
@@ -177,7 +162,6 @@ def detalle_sucursal(request, sucursal_id):
     })
 
 # editar sucursal
-@login_required
 def editar_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     if request.method == 'POST':
@@ -192,7 +176,6 @@ def editar_sucursal(request, sucursal_id):
     })
 
 # eliminar una sucursal
-@login_required
 def eliminar_sucursal(request, sucursal_id):
     sucursal = get_object_or_404(Sucursale, pk=sucursal_id)
     sucursal.activo = False
@@ -201,7 +184,6 @@ def eliminar_sucursal(request, sucursal_id):
 
 
 #listar cuentas de un cliente
-@login_required
 def accouns_clients(request):
     # Obtener el propietario cliente del usuario en sesión
     propietario_cliente_buscar = request.user.propietario_cliente
