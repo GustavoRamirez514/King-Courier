@@ -120,7 +120,7 @@ def asignar_mensajeros(request, cliente_id):
 
 # listar sucursales registradas
 def sucursal(request):
-    sucursal = Sucursale.objects.filter(cliente=request.user.propietario_cliente)
+    sucursal = Sucursale.objects.filter(cliente=request.user.propietario_cliente).filter(activo=True)
     if sucursal.exists():
         return render(request, 'sucursales/index.html', {
             'sucursales': sucursal
