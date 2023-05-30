@@ -20,6 +20,6 @@ class UserTest(TestCase):
 
     def test_no_users_exist(self):
         self.client.login(username='testuser', password='testpass')
-        response = self.client.get('/users/')
+        response = self.client.get('')
         self.assertEqual(response.status_code, 200)
     
