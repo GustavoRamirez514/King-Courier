@@ -24,5 +24,6 @@ urlpatterns = [
     path('bienvenida/', TemplateView.as_view(template_name='welcome.html'), name='welcome'),
     path('', include("GestionClientes.urls")),
     path('mensajeros/', include("GestionMensajeros.urls")),
-    path('', include('user.urls')),
+    path('usuarios', include('user.urls')),
+    path('pedidos/', include("GestionPedidos.urls")),
 ]
