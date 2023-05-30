@@ -16,7 +16,7 @@
     {% csrf_token %}
 
     <label for="id_identificacion">Identificacion:</label>
-    <input type="text" name="identificacion" maxlength="20" required="" id="id_identificacion" value="{{cliente.id}}" readonly/>
+    <input type="text" name="identificacion" maxlength="20" required="" id="id_identificacion" value="{{cliente.identificacion}}" readonly/>
 
     <label for="id_nombre">Nombre:</label>
     <input type="text" name="nombre" maxlength="200" required="" id="id_nombre" value="{{cliente}}"/>
