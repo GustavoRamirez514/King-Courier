@@ -14,52 +14,71 @@ Aplicación web para una empresa de mensajería que permita gestionar y hacer se
 - [Despliegue](#despliegue)
 - [Monitoreo de la Aplicación](#monitoreo-de-la-aplicación)
 - [Organización del Proyecto](#organización-del-proyecto)
-- [Contribución](#contribución)
-- [Licencia](#licencia)
 
 
 ## Requisitos
 
-- Python (versión X.X.X)
-- Django (versión X.X.X)
-- Bootstrap (versión X.X.X)
+- Python
+- Django
+- Bootstrap
 - HTML
 - CSS
 - JavaScript
 
 ## Configuración del Entorno
 
-Explica cómo configurar el entorno de desarrollo para ejecutar el proyecto. Incluye los pasos necesarios para instalar las dependencias y configurar la base de datos si es necesario. Además, menciona cualquier variable de entorno que deba configurarse.
+1. Clonamos el repositorio desde GitHub:
+```
+git clone https://github.com/miche890/King-Courier.git
+```
+
+2. Instalamos las dependencias del proyecto:
+``` python
+pip install -r requirements.txt
+```
+
+3. Configuramos las variables de entorno necesarias para la aplicación, como las credenciales de la base de datos.
+
+4. Realizamos cualquier otra configuración específica que pueda ser necesaria para nuestro proyecto, como las secrets en nuestro respositorio de GitHub.
 
 ## Ejecución del Proyecto
 
-Detalla cómo se puede ejecutar el proyecto localmente. Incluye los comandos necesarios para iniciar el servidor de desarrollo de Django.
+1. Aplicamos las migraciones:
+``` python
+python manage.py migrate
+```
+
+2. Ejecutamos el servidor de desarrollo de Django:
 
 ``` python
 python manage.py runserver
 ```
-
+Esto iniciará el servidor de desarrollo y podrás acceder a la aplicación en http://localhost:8000.
 
 ## Pruebas
 
-Explica cómo se ejecutan las pruebas unitarias y de integración en el proyecto. En tu caso, menciona que estás utilizando Git Actions para ejecutar las pruebas automatizadas. Puedes proporcionar un ejemplo de cómo se configuran las pruebas en tu flujo de trabajo de Git Actions.
+Las pruebas de la aplicacion se realizan automaticamente con GitActions.
+
+- Las pruebas unitarias se ejecutan automáticamente cuando se hace un commit o un pull request a la rama develop. Los resultados de las pruebas se pueden ver en la sección de acciones en el repositorio de GitHub.
+
+- Las pruebas de SonarCloud también se activan cuando se realiza un commit o un pull request en la rama develop. Los resultados y métricas de calidad del código se pueden ver en la interfaz de SonarCloud.
 
 ## Despliegue
 
-Explica cómo se realiza el despliegue de la aplicación. Menciona que estás utilizando Docker para crear un contenedor con la aplicación y que estás utilizando Render.com para el despliegue en un entorno de producción. Proporciona detalles sobre cómo se configuran y utilizan estas herramientas.
+El despliegue de la aplicación se realiza automáticamente en Render.com.
+
+1. Nos aseguramos de que el repositorio de GitHub esté conectado a Render.com y configurado correctamente.
+
+2. Realizamos los cambios necesarios en nuestro código y realizamos un commit en la rama main.
+
+3. Render.com detectará automáticamente el nuevo commit y generará un nuevo evento de despliegue.
+
+4. Una vez que el despliegue se haya completado, podremos acceder a la aplicación en la URL proporcionada por Render.com.
 
 ## Monitoreo de la Aplicación
 
-Explica cómo se monitorea la aplicación en tiempo real. Menciona que estás utilizando Slack para recibir notificaciones en los canales relevantes. Puedes detallar qué tipos de notificaciones se envían y cómo se configuran.
+1. Configuramos las integraciones de Slack para recibir notificaciones de eventos relevantes, como commits, creación de imágenes de Docker, escaneos de SonarCloud, modificaciones en Trello, etc. Encontramos esta información sobre cómo configurar las notificaciones en Slack en la documentación de Slack y en las herramientas específicas que estamos utilizando para la integración.
 
 ## Organización del Proyecto
 
 Menciona que estás utilizando Trello para la organización del proyecto en colaboración con tu compañera de trabajo. Puedes mencionar cómo se utilizan las tarjetas, listas y tableros en Trello para gestionar las tareas y el progreso del proyecto.
-
-## Contribución
-
-Si deseas que otras personas contribuyan a tu proyecto, proporciona pautas sobre cómo pueden hacerlo. Puedes incluir instrucciones sobre cómo bifurcar el repositorio, crear una rama y enviar solicitudes de extracción.
-
-## Licencia
-
-Indica la licencia bajo la cual se distribuye el proyecto.
