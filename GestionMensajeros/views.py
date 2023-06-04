@@ -57,6 +57,26 @@ def detalle_mensajero(request, mensajero_id):
         }
     )
 
+def clientes_mensajero(request):
+    try:
+        mensajero = request.user.propietario_mensajero
+        clientes = Cliente.objects.filter(detalleclientemensajeros__mensajero=mensajero)
+        
+        if clientes.exists():
+            return render(request, 'mensajeros/clientes.html', {
+                'clientes': clientes
+            })
+        else:
+            message = "No tiene clientes asociados"
+            return render(request, 'sucursales/index.html', {
+                'message': message
+            })
+    except Mensajeros.DoesNotExist:
+        message = "No es un mensajero válido"
+        return render(request, 'sucursales/index.html', {
+            'message': message
+        })
+
 # editar mensajero    
 def editar_mensajero(request, mensajero_id):
     mensajero = get_object_or_404(Mensajeros, pk=mensajero_id)
