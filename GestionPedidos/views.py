@@ -54,9 +54,12 @@ def create_pedido(request):
 
 
 def detalle_pedido(request, pedido_id):
-    pedido = get_object_or_404(Pedido, pk=pedido_id)
+    # Obtener el último registro del detalle del pedido
+    ultimo_detalle = DetalleEstadoPedido.objects.filter(id_pedido=pedido_id).latest('fecha_hora')
+
+    # Renderizar la plantilla con el detalle del pedido
     return render(request, 'pedidos/detail.html', {
-        'pedido': pedido,
+        'pedido': ultimo_detalle,
     })
 
 def cancelar_pedido(request, pedido_id):
@@ -72,6 +75,7 @@ def cancelar_pedido(request, pedido_id):
     )
     nuevo_estado_pedido.save()
     return redirect('pedidos')
+
 
 def pedido_mensajero(request):
     try:
@@ -117,7 +121,8 @@ def cambiar_estado_pedido(request, pedido_id):
             fecha_hora=datetime.now(),  # Establecer la fecha y hora actual
         )
         
-        foto = request.FILES.get('foto')  # Obtener el archivo de imagen enviado
+        # Obtener el archivo de imagen enviado
+        foto = request.FILES.get('foto')
         if foto:
             nuevo_estado_pedido.foto = foto
 

@@ -6,9 +6,13 @@
   <link href="{% static 'styles/FormStyle.css' %}" rel="stylesheet" />
 {% endblock head %} 
 
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
 {% block content %}
 <h1 class="titulo">Editar Perfil </h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %} 
   {{ form.as_p }}
   <button type="submit">Guardar Cambios</button>
