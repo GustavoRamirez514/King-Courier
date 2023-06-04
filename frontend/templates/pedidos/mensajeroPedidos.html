@@ -23,9 +23,9 @@
 
 
     <div class="search-container d-flex justify-content-between align-items-center mb-3">
-      <div class="mr-4 ml-4 btnCreate">
-        <a class="btn btn-success w-150" href="{% url 'create_pedido' %}" role="button">Nuevo Pedido</a>
-      </div>
+        <div>
+
+        </div>
       <div class="mr-4 search">
         <input type="text" class="form-control w-300" id="search-input" placeholder="Buscar...">
       </div>
@@ -34,7 +34,6 @@
     <div class="card-body">
       <div class="table-responsive">
         <table class="table">
-          <caption>Listado de Pedidos</caption>
           <thead>
             <tr>
               <th>ID</th>
@@ -57,7 +56,7 @@
               <td>{{detalle.id_estado}}</td>
               <td> 
                 <a class="btn btn-info" href="{% url 'detalle_pedido' detalle.id_pedido.id %}" role="button">Detalles<a>             
-                <a class="btn btn-danger" href="{% url 'cancelar_pedido' detalle.id_pedido.id %}" role="button">Cancelar</a>  
+                <a class="btn btn-primary" href="{% url 'cambiar_estado_pedido' detalle.id_pedido.id %}" role="button">Cambiar Estado</a>  
               </td>
             </tr>
             {% endfor %}
