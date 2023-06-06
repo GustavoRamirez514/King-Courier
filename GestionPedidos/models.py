@@ -1,6 +1,7 @@
 from django.db import models
 from GestionMensajeros.models import Mensajeros
 from GestionClientes.models import Cliente, Sucursale
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -28,7 +29,7 @@ class DetalleEstadoPedido(models.Model):
     id_estado = models.ForeignKey(EstadoPedido, on_delete=models.CASCADE)
     id_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     fecha_hora = models.DateTimeField(auto_now=False, auto_now_add=False)
-    foto = models.ImageField(upload_to='detalles_estado', null=True, blank=True)
+    foto = CloudinaryField('detalles_estado')
     
     def __str__(self):
         return str(self.id_estado)+ " - " + str(self.id_pedido)

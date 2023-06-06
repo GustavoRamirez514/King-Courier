@@ -8,8 +8,12 @@ from .models import User
 @login_required
 def user_create(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
+            user = form.save(commit=False)
+            new_profile_photo = form.cleaned_data.get('profile_photo')
+            if new_profile_photo:
+                user.profile_photo = new_profile_photo
             user = form.save()
             return redirect('users')
     else:
