@@ -111,7 +111,7 @@ def asignar_mensajeros(request, cliente_id):
             new_detalle = data.save(commit=False)
             new_detalle.cliente = cliente
             new_detalle.save()
-            return redirect('detalle_cliente', cliente_id)
+            return redirect('detalle_cliente', cliente_id=cliente_id)
         else:
             return render(request, 'clientes/asignarMensajero.html', {
                 'form': data,
