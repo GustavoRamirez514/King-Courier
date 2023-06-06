@@ -26,7 +26,6 @@ def create_mensajero(request):
         })
     else:
         data = MensajeroForm(request.POST)
-        print(data)
         if data.is_valid():
             # Agrega una validación personalizada para la identificación
             identificacion = data.cleaned_data['identificacion']

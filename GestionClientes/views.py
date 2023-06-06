@@ -141,7 +141,6 @@ def create_sucursal(request):
         })
     else:
         data = SucursaleForm(request.POST)
-        print(data)
         if data.is_valid():
             new_sucursal = data.save(commit=False)
             new_sucursal.cliente = cliente
