@@ -1,7 +1,13 @@
 from user.models import User
-from django.test import TestCase, Client
+from django.test import RequestFactory,TestCase, Client
 from django.urls import reverse
 from GestionClientes.models import Cliente, Sucursale
+from .views import accouns_clients, asignar_mensajeros
+from django.http import HttpRequest
+from django.shortcuts import render
+from GestionClientes.views import create_sucursal
+from .models import Cliente, DetalleClienteMensajeros
+from django.shortcuts import redirect
 
 
 class ClienteViewTest(TestCase):
@@ -167,3 +173,60 @@ class SucursalViewsTest(TestCase):
         sucursal_eliminada = Sucursale.objects.filter(
             pk=sucursal.id, activo=False).exists()
         self.assertTrue(sucursal_eliminada)
+
+#  
+class AccountsClientsTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create(username='testuser')
+        self.cliente = Cliente.objects.create(identificacion='123', nombre='Cliente Test')
+
+    def test_accounts_clients_with_users(self):
+        request = self.factory.get('/accounts/')
+        request.user = self.user
+        self.user.propietario_cliente = self.cliente
+        self.user.save()
+
+        response = accouns_clients(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.user.username)
+
+    def test_accounts_clients_without_users(self):
+        request = self.factory.get('/accounts/')
+        request.user = self.user
+
+        response = accouns_clients(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No hay usuarios aún')
+
+
+class AsignarMensajerosTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.client = Client()
+        self.cliente = Cliente.objects.create(
+            identificacion='123456789',
+            nombre='Cliente de prueba',
+            direccion='Dirección de prueba',
+            ciudad='Ciudad de prueba',
+            email='cliente@prueba.com',
+            telefono='1234567890',
+            activo=True
+        )
+
+    def test_asignar_mensajeros_get(self):
+        url = reverse('asignar_mensajeros', args=[self.cliente.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'clientes/asignarMensajero.html')
+
+    def test_asignar_mensajeros_post_invalid(self):
+        url = reverse('asignar_mensajeros', args=[self.cliente.id])
+        data = {
+            # No proporcionar los datos requeridos aquí para generar un caso inválido
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'clientes/asignarMensajero.html')
