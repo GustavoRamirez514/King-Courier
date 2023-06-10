@@ -3,17 +3,10 @@
 {% load static %}
 
 {% block head %}
-    <title>King Courier | Tus pedidos</title>
+    <title>King Courier | Reporte Por Cliente</title>
     <link href="{% static 'styles/TableStyle.css' %}" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'scripts/SearchTable.js' %}"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    {% include 'layouts/headReportes.html' %}
 {% endblock head %}
 
 {% block header %}
@@ -31,7 +24,7 @@
 
     <div class="search-container d-flex justify-content-start align-items-center mb-3">
       <div class="mr-4 ml-4 btnCreate">
-        <a class="btn btn-success w-150" href="{% url 'reporte_pedido_clientes_pdf' %}" role="button" target="_blank">Generar Reporte</a>
+        <a class="btn btn-success w-150" href="{% url 'reporte_pedido_clientes_pdf' %}" role="button" target="_blank" rel="noopener">Generar Reporte</a>
       </div>
       <div class="">
         <a class="btn btn-primary w-150" href="{% url 'reporte_pedido_fecha' %}" role="button">Reporte por mes de creacion</a>
