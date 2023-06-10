@@ -4,6 +4,7 @@ python-dotenv==1.0.0
 coverage==7.2.5
 Pillow==9.5.0
 cloudinary==1.33.0
+xhtml2pdf==0.2.11
 
 # Despliegue
 whitenoise==6.4.0

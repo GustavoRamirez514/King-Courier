@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'GestionClientes',
     'GestionMensajeros',
     'GestionPedidos',
+    'GestionReportes',
 ]
 
 MIDDLEWARE = [
