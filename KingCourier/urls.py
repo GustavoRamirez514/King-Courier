@@ -28,4 +28,5 @@ urlpatterns = [
     path('mensajeros/', include("GestionMensajeros.urls")),
     path('usuarios', include('user.urls')),
     path('pedidos/', include("GestionPedidos.urls")),
+    path('reportes/', include("GestionReportes.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

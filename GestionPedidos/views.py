@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from .models import Pedido, DetalleEstadoPedido, EstadoPedido
 from user.models import User
-from django.db.models import Max, Subquery, OuterRef
-from itertools import zip_longest
+from django.db.models import Max, Subquery
 from .forms import PedidoForm
 from datetime import datetime
 
