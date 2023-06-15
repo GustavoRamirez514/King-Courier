@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>King Courier | Clientes</title>
+    <link href="{% static 'styles/TableStyle.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'scripts/SearchTable.js' %}"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% endblock head %}
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+<h1 class="text-center">Clientes</h1>
+  {% if message %}
+    <div class="alert alert-info" role="alert">
+      {{message}}
+    </div>
+  {% endif %}
+
+  <div class="search-container d-flex justify-content-between align-items-center mb-3">
+    <div class="mr-4 ml-4 btnCreate">
+      <a class="btn btn-success w-150" href="{% url 'create_cliente' %}" role="button">Crear Cliente</a>
+    </div>
+    <div class="mr-4 search">
+      <input type="text" class="form-control w-300" id="search-input" placeholder="Buscar...">
+    </div>
+  </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <caption>Listado de Clientes</caption>
+          <thead>
+            <tr>
+              <th>NIT</th>
+              <th>Nombre</th>
+              <th>Direccion</th>
+              <th>Ciudad</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cliente in clientes %}
+            <tr>
+              <td>{{cliente.identificacion}}</td>
+              <td><a href="{% url 'detalle_cliente' cliente.id %}">{{ cliente.nombre }}</a></td>
+              <td>{{cliente.direccion}}</td>
+              <td>{{cliente.ciudad}}</td>
+              <td>{{cliente.email}}</td>
+              <td>{{cliente.telefono}}</td>
+              <td> 
+                <a class="btn btn-info" href="{% url 'editar_cliente' cliente.id %}" role="button">Editar</a>
+                <a class="btn btn-primary" href="{% url 'asignar_mensajeros' cliente.id %}" role="button">Asignar Mensajero</a>
+                {% comment %} <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button" onclick="return confirm('¿Estás Seguro de Borrar este Cliente?')">Borrar</a> {% endcomment %}
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirmModal{{ cliente.id }}">Borrar</button>
+              </td>
+            </tr>
+            
+            <div class="modal fade" id="confirmModal{{ cliente.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">
+                      <i class='bx bx-message-rounded-error bx-tada bx-lg' style='color:#DC3545'  ></i>
+  
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ¿Estás Seguro de Borrar este Cliente?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}">Borrar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    
+{% endblock content %}

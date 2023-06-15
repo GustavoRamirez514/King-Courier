@@ -1,0 +1,66 @@
+h1{
+    font-weight:bold;
+}
+
+th{
+    font-weight: bolder;
+}
+
+.btn:hover{
+    background-color: black;
+}
+caption {
+  display: none;
+}
+
+
+.btnCreate{
+  width: 150px;
+  padding-left: 30px;
+}
+
+.search{
+  width: 500px;
+  padding-right: 30px;
+}
+
+.form-control:focus {
+  outline: 1px solid #d6af81;
+  box-shadow: 0 0 0.3rem 0.1rem #d6af81;
+  border-color: #d6af81;
+}
+
+@media screen and (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+  .search{
+    padding-left: 120px;
+  }
+}
+
+
+/* ESTILOS PARA LA BARRA DE NAVEGACION */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+    z-index: -1;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #d8d8d8;
+    opacity: 10px;
+    border-radius: 10px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c9c9c9;
+    opacity: 10px;
+    border-radius: 10px;
+  }

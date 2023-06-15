@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+
+{% block head %}
+    <title>King Courier | Cuentas del Clientes</title>
+{% endblock head %}
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+    <h1>Usuarios Asociados</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    {% for cuenta in users %}
+        <p>{{cuenta}}</p>
+    {% endfor %}
+    {{id}}
+{% endblock content %}

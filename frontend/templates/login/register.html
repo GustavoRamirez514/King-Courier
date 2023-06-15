@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>King Courier | Registrar Usuario</title>
+    <link href="{% static 'styles/FormStyle.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+<h1 class="titulo">Crear Usuarios</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {{form.as_p}}
+    <button>Guardar</button>
+  </form>
+  <script src="{% static 'scripts/navbarScript.js' %}"></script>
+{% endblock content %}

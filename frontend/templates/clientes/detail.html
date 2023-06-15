@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+
+{% block head %}
+    <title>King Courier | Informacion del Clientes</title>
+    <link href="{% static 'styles/detailClientesStyle.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+<div class="contenedor">
+    <div class="tarjeta">
+      <h2>Detalles del cliente</h2>
+      <p>NIT: {{ cliente.identificacion }}</p>
+      <p>Razon Social: {{ cliente.nombre }}</p>
+      <p>Direccion: {{ cliente.direccion }}</p>
+      <p>Ciudad: {{ cliente.ciudad }}</p>
+      <p>Email: {{ cliente.email }}</p>
+      <p>Telefono: {{ cliente.telefono }}</p>
+      <p>Ciudad: {{ cliente.ciudad }}</p>
+    </div>
+  
+    <div class="tarjeta">
+      <h2>Usuarios Asociados</h2>
+      {% for cuenta in users %}
+        <p>{{cuenta}}</p>
+      {% endfor %}
+    </div>
+  
+    <div class="tarjeta">
+      <h2>Sucursales</h2>
+      {% for sucursal in sucursales %}
+        <p>{{sucursal}}</p>
+      {% endfor %}
+    </div>
+    
+    <div class="tarjeta">
+      <h2>Mensajeros Asociados</h2>
+      {% for detalle in detalleMensajeros %}
+        <p>{{detalle.mensajero}}</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

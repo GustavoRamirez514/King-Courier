@@ -1,0 +1,137 @@
+{% extends 'layouts/base.html' %} 
+
+{% load static %}
+
+{% block head %}
+    <title>King Courier | Reporte Por Cliente</title>
+    <link href="{% static 'styles/TableStyle.css' %}" rel="stylesheet" />
+    <script src="{% static 'scripts/SearchTable.js' %}"></script>
+    {% include 'layouts/headReportes.html' %}
+{% endblock head %}
+
+{% block header %}
+    {% include 'layouts/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+<h1 class="text-center"> Reporte de pedidos por Cliente</h1>
+  {% if message %}
+    <div class="alert alert-info" role="alert">
+      {{message}}
+    </div>
+  {% endif %}
+
+
+    <div class="search-container d-flex justify-content-start align-items-center mb-3">
+      <div class="mr-4 ml-4 btnCreate">
+        <a class="btn btn-success w-150" href="{% url 'reporte_pedido_clientes_pdf' %}" role="button" target="_blank" rel="noopener">Generar Reporte</a>
+      </div>
+      <div class="">
+        <a class="btn btn-primary w-150" href="{% url 'reporte_pedido_fecha' %}" role="button">Reporte por mes de creacion</a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <div class="mr-4 search">
+        <input type="text" class="form-control w-300" id="search-input" placeholder="Pedidos por cliente...">
+      </div>
+    </div>
+  
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <caption>Listado de Pedidos por cliente</caption>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Sucursal</th>
+              <th>Destino</th>
+              <th>Transporte</th>
+              <th>Numero Paquetes</th>
+              <th>Descripcion</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+              <td>{{pedido.id_cliente}}</td>
+              <td>{{pedido.id_sucursal_origen}}</td>
+              <td>{{pedido.id_sucursal_destino}}</td>
+              <td>{{pedido.tipo_trasnporte}}</td>
+              <td>{{pedido.numero_paquetes}}</td>
+              <td>{{pedido.descripcion}}</td>
+              <td> 
+                <a class="btn btn-info" href="{% url 'detalle_pedido' pedido.id %}" role="button">Detalles<a>             
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="container" class="mx-3">
+        <script>
+          // Obtén los datos de pedidos_por_cliente desde el contexto de Django
+          let pedidosClienteData = JSON.parse('{{ pedidos_cliente|escapejs }}');
+
+          // Crea un array vacío para almacenar los datos del gráfico
+          let chartData = [];
+
+          // Itera sobre los datos de pedidos_por_cliente y crea un objeto de datos para cada cliente
+          pedidosClienteData.forEach(function(pedido) {
+            let clienteData = {
+              name: pedido.id_cliente__nombre.toString(),
+              y: pedido.cantidad_pedidos
+            };
+            chartData.push(clienteData);
+          });
+
+          // Crea el gráfico Highcharts con los datos dinámicos
+          Highcharts.chart('container', {
+            chart: {
+              type: 'column'
+            },
+            title: {
+              align: 'center',
+              text: 'Cantidad de pedidos por cliente'
+            },
+            accessibility: {
+              announceNewData: {
+                enabled: true
+              }
+            },
+            xAxis: {
+              type: 'category'
+            },
+            yAxis: {
+              title: {
+                text: 'Cantidad de Pedidos'
+              }
+            },
+            legend: {
+              enabled: false
+            },
+            plotOptions: {
+              series: {
+                borderWidth: 0,
+                dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.0f} pedidos'
+                }
+              }
+            },
+            tooltip: {
+              headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> pedidos<br/>'
+            },
+            series: [
+              {
+                name: 'Cliente',
+                colorByPoint: true,
+                data: chartData
+              }
+            ]
+          });
+        </script>
+      </div>
+{% endblock content %} 
